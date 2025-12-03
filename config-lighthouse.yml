@@ -1,8 +1,7 @@
-# /etc/nebula/config.yml
 pki:
-  ca: /etc/nebula/ca.crt
-  cert: /etc/nebula/lighthouse.crt
-  key: /etc/nebula/lighthouse.key
+  ca: /etc/nebula/pki/ca.crt
+  cert: /etc/nebula/pki/lighthouse.crt
+  key: /etc/nebula/pki/lighthouse.key
 
 static_host_map: {}
 lighthouse:

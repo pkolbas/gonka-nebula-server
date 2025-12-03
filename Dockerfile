@@ -14,7 +14,7 @@ RUN mkdir -p /tmp/nebula && \
     mv nebula-cert /usr/local/bin/nebula-cert && \
     cd / && rm -rf /tmp/nebula
 
-RUN mkdir -p /etc/nebula /app
+RUN mkdir -p /etc/nebula/pki /app
 
 COPY config-lighthouse.yml /etc/nebula/config.yml
 

@@ -9,30 +9,26 @@ fi
 ID="$1"
 NAME_PREFIX="${2:-ml-node}"
 
-if ! [[ "$ID" =~ ^[0-9]{1,3}$ ]]; then
-  echo "CLIENT_ID must be a number (1-255)" >&2
-  exit 1
-fi
-
-if [ "$ID" -lt 1 ] || [ "$ID" -gt 254 ]; then
-  echo "CLIENT_ID must be between 1 and 254" >&2
+ID_NUM=$((10#$ID))
+if [ "$ID_NUM" -lt 1 ] || [ "$ID_NUM" -gt 99 ]; then
+  echo "CLIENT_ID must be between 01 and 99" >&2
   exit 1
 fi
 
 NAME="${NAME_PREFIX}-${ID}"
-IP="10.0.0.${ID}/24"
+IP="10.0.0.${ID_NUM}/24"
 
 echo "Issuing Nebula cert for ${NAME} with IP ${IP}"
 
 nebula-cert sign \
-  -ca-crt /etc/nebula/ca.crt \
-  -ca-key /etc/nebula/ca.key \
+  -ca-crt /etc/nebula/pki/ca.crt \
+  -ca-key /etc/nebula/pki/ca.key \
   -name "${NAME}" \
   -ip "${IP}" \
   -groups "ml-node" \
-  -out-crt "/etc/nebula/${NAME}.crt" \
-  -out-key "/etc/nebula/${NAME}.key"
+  -out-crt "/etc/nebula/pki/${NAME}.crt" \
+  -out-key "/etc/nebula/pki/${NAME}.key"
 
 echo "Created:"
-echo "  /etc/nebula/${NAME}.crt"
-echo "  /etc/nebula/${NAME}.key"
+echo "  /etc/nebula/pki/${NAME}.crt"
+echo "  /etc/nebula/pki/${NAME}.key"
