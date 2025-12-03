@@ -79,9 +79,10 @@ async def start_listeners():
                 port,
             )
             servers.append(server)
+            client_id = port % 100
             logging.info(
-                "Listening on %s:%d -> 10.0.0.<ID>:%d (%s)",
-                LISTEN_HOST, port, target_port, name
+                "Listening on %s:%d -> 10.0.0.%d:%d (%s)",
+                LISTEN_HOST, port, client_id, target_port, name
             )
 
     # Ожидаем пока все сервера живы
